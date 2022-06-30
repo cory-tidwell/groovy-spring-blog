@@ -9,7 +9,7 @@ public class PostController {
     @GetMapping("/posts")
     @ResponseBody
     public String showPosts(@PathVariable String x){
-        return "posts/index";
+        return "index";
     }
 
     @GetMapping("/posts/{id}")
@@ -29,4 +29,6 @@ public class PostController {
     public String createPost(@PathVariable String x){
         return "posts/create";
     }
+
+
 }
