@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="partials/head.html :: site-head"></div>
+<body>
+<div th:replace="partials/header.html :: site-header"></div>
+
+<div id="form-container">
+  <form th:action="'/posts/edit/' + ${post.getId()}" method="post" class="d-flex flex-column">
+
+    <label class="mt-1 mb-3">Post Title:</label>
+    <input name="title" type="text" th:value="${post.getTitle()}">
+
+    <label class="mt-1 mb-3">Post Body:</label>
+    <textarea name="body" style="height: 10em;">[[${post.getBody()}]]</textarea>
+
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+  </form>
+</div>
+
+<div th:replace="partials/footer.html :: site-footer"></div>
+<div th:replace="partials/scripts.html :: site-scripts"></div>
+</body>
+</html>
