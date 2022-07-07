@@ -4,7 +4,7 @@ import com.codeup.groovyspringblog.models.Post;
 import com.codeup.groovyspringblog.models.User;
 import com.codeup.groovyspringblog.repositories.PostRepository;
 import com.codeup.groovyspringblog.repositories.UserRepository;
-//import com.codeup.groovyspringblog.services.EmailService;
+import com.codeup.groovyspringblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     private final PostRepository postDao;
     private final UserRepository userDao;
-//    private final EmailService emailService;
+    private final EmailService emailService;
 
-    public PostController(PostRepository postDao, UserRepository userDao/* EmailService emailService*/){
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService){
         this.postDao = postDao;
         this.userDao = userDao;
-//        this.emailService = emailService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -74,7 +74,7 @@ public class PostController {
     @PostMapping(path = "/posts/create")
     public String postCreate(@ModelAttribute Post post){
         post.setUser(userDao.getById((long) 1));
-//        emailService.prepareAndSend(post, "Your latest blog post: " + post.getTitle(), "This is the body of your post!" + post.getBody());
+        emailService.prepareAndSend(post, "Your latest blog post: " + post.getTitle(), "This is the body of your post!" + post.getBody());
         postDao.save(post);
         return "redirect:/posts";
     }
